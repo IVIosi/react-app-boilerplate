@@ -1,28 +1,34 @@
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 module.exports = {
-  entry: path.resolve(__dirname, "src/index"),
+  entry: path.resolve(__dirname, './src/index.tsx'),
   output: {
-    path: path.resolve(__dirname, "dist"),
-    filename: "bundle.js",
+    path: path.resolve(__dirname, 'build'),
+    filename: 'bundle.min.js',
   },
   module: {
     rules: [
       {
-        test: /\.js$/,
-        include: path.resolve(__dirname, "src"),
-        use: ["babel-loader"],
+        test: /\.ts(x?)$/,
+        exclude: /node_modules/,
+        use: ['babel-loader'],
       },
     ],
   },
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js'],
+    plugins: [new TsconfigPathsPlugin({ configFile: 'tsconfig.json' })],
+  },
+  devtool: 'source-map', // ???
   devServer: {
-    contentBase: path.resolve(__dirname, "dist"),
-    port: 9000,
+    contentBase: path.resolve(__dirname, 'dist'),
+    port: 3000,
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "public/index.html", //source html
+      template: 'public/index.html', //source html
     }),
   ],
 };

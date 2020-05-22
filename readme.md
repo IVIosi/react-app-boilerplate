@@ -1,7 +1,5 @@
-# simple react app boilerplate
-Author: Mostafa Sameti
+echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
 
-## Usage
-* `npm install` to install required packages.
-* `npm run dev` to run project on dev-server at localhost:8080.
-* `npm run build` to run project on dev-server at localhost:8080.
+cat /proc/sys/fs/inotify/max_user_watches
+
+fs.inotify.max_user_watches=524288
